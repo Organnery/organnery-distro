@@ -8,7 +8,7 @@ clean:
 	if [ -f $(IMAGE).gz ]; then rm $(IMAGE).gz; fi
 
 image:
-	sudo ./debstrap/pdk2 $(CURDIR) $(CONFIG) $(IMAGE)
+	sudo /usr/share/dibby/dibby $(CURDIR) $(CONFIG) $(IMAGE)
 
 release:
 	md5sum $(IMAGE) > $(IMAGE).md5sum
