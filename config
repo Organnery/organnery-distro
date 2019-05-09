@@ -1,5 +1,5 @@
 CONFIG_ARCH="armhf"
-CONFIG_HOSTNAME="pdk"
+CONFIG_HOSTNAME="organnery"
 CONFIG_ROOT_PASSWORD="toor"
 CONFIG_PRESEED="preseed.conf"
 CONFIG_POSTINST="postinst.sh"
