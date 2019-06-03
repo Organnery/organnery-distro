@@ -24,6 +24,13 @@ dtoverlay=pi3-disable-bt
 
 # default soundcard
 dtoverlay=pisound
+
+# force HDMI output when no monitor is available
+hdmi_force_hotplug=1
+
+# set HDMI resolution to 1280x768
+hdmi_group=2
+hdmi_mode=24
 EOF
 
 
