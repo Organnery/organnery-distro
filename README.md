@@ -42,7 +42,7 @@ md5sum -c out.img.md5sum
 If the download is good, `md5sum` will report:
 
 ```
-test: OK
+out.img: OK
 ```
 
 Then you can proceed to flash the image:
@@ -58,7 +58,7 @@ sudo dd if=/path/to/out.img of=/dev/sdX bs=4M status=progress
 In case of a corrupted download, `md5sum` should report:
 
 ```
-test: FAILED
+out.img: FAILED
 md5sum: WARNING: 1 computed checksum did NOT match
 ```
 
