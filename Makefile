@@ -1,5 +1,5 @@
 CONFIG := "config"
-IMAGE := "out.img"
+IMAGE := "organnery_v4.img"
 
 
 clean:
