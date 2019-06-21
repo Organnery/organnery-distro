@@ -49,9 +49,13 @@ Then you can proceed to flash the image:
 
 ```
 sudo dd if=/path/to/out.img of=/dev/sdX bs=4M status=progress
+sync
 ```
 
 ...where `/dev/sdX` is the microSD writer device identified by `lsblk` after insertion.
+
+After running the `sync` command it should be safe to unplug the microSD card or a USB writer device.
+Watch out for desktop systems that will mount the new microSD card partitions for you automatically, as these may need to be unmounted manually.
 
 ## Troubleshooting
 
