@@ -75,11 +75,11 @@ If the image will not boot after using a known-working card writer and microSD c
 
 ## Remounting the root filesystem read-write
 
-By default, the root filesystem is mounted read-only with an overlay filesystem so that applications behave as normal, but write to temporary files.
+By default, the root filesystem is mounted read-only, with an overlay filesystem so that applications behave as normal but write to temporary files.
 Any changes made to the software are reset when the device is rebooted, for consistent results.
 If you want to commit any software changes, for example to application scripts, don't forget to do this before you reboot the device!
 
-Start-up scripts are less easy to modify and test with an overlay filesystem, and any extra applications and tools installed will vanish on reboot.
+Start-up scripts are less easy to modify and test with an overlay filesystem, and any extra Debian packages, kernels, applications or tools installed will vanish on reboot.
 If you wish to change the root filesystem of the target device so that it behaves in a persistent way, you can run the following command from a terminal on the target device:
 ```
 organnery-config overlayfs-disable
@@ -88,4 +88,17 @@ organnery-config overlayfs-disable
 To return the root filesystem to read-only with an overlay filesystem, you can run the command:
 ```
 organnery-config overlayfs-enable
+```
+
+To check the current state of the overlay filesystem, run the command:
+```
+organnery-config overlayfs-check
+```
+
+This will either return `overlayfs is enabled for current session`, in which case any filesystem changes will be lost on reboot of the device, or `overlayfs is disabled for current session` indicating that any filesystem changes will be persistent.
+The state of the system after the next reboot will also be reported, as either `overlayfs is enabled for the next session` or `overlayfs is disabled for the next session`.
+
+If you only want the /boot partition mounted read-write, and the rest of the filesystem unchanged, you can run the command:
+```
+organnery-config mount-boot
 ```
