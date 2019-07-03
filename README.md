@@ -11,44 +11,45 @@ The source code for dibby and instructions for installation of dibby on a Debian
 ## Makefile commands
 
 To clean this workspace of previously generated files, run the command:
-
 ```
 make clean
 ```
 
-To build a fresh image after modifying the custom packages in the `debs` directory, image `config`, `postinst.sh` or `preseed.conf` files:
+Next, you will probably want to increment the version number `v*.img` in the `Makefile` to avoid overwriting your previously generated image.
+For example, before building image version 999, you would bump the value of `IMAGE` to:
+```
+IMAGE := "organnery_v999.img"
+```
 
+To build a fresh image after modifying the custom packages in the `debs` directory, image `config`, `postinst.sh` or `preseed.conf` files:
 ```
 make image
 ```
 
 To checksum and compress the image for release:
-
 ```
 make release
 ```
 
-That's it, your compressed image `out.img.gz` and checksum file `out.img.md5sum` are ready to be downloaded!
+That's it, your compressed image `organnery_v*.img.gz` and checksum file `organnery_v*.img.md5sum` are ready to be downloaded!
 
 ## Flashing the image
 
-The compressed image `out.img.gz` can be flashed to a microSD card in the usual way, using `dd` for example. First, uncompress and verify the image has not been corrupted by comparing it to the checksum file `out.img.md5sum` with these commands:
-
+The compressed image `organnery_v*.img.gz` can be flashed to a microSD card in the usual way, using `dd` for example.
+First, uncompress and verify the image has not been corrupted by comparing it to the checksum file `organnery_v*.img.md5sum` with these commands:
 ```
-gunzip out.img.gz
-md5sum -c out.img.md5sum
+gunzip organnery_v*.img.gz
+md5sum -c organnery_v*.img.md5sum
 ```
 
 If the download is good, `md5sum` will report:
-
 ```
-out.img: OK
+organnery_v*.img: OK
 ```
 
 Then you can proceed to flash the image:
-
 ```
-sudo dd if=/path/to/out.img of=/dev/sdX bs=4M status=progress
+sudo dd if=organnery_v*.img of=/dev/sdX bs=4M status=progress
 sync
 ```
 
@@ -57,20 +58,40 @@ sync
 After running the `sync` command it should be safe to unplug the microSD card or a USB writer device.
 Watch out for desktop systems that will mount the new microSD card partitions for you automatically, as these may need to be unmounted manually.
 
+## Verifying the image
+
+Immediately after flashing, before the microSD card has been booted or modified, it is possible to check that the flashing worked correctly, using the `cmp` command. For example:
+```
+sudo cmp organnery_v*.img /dev/sdX
+cmp: EOF on organnery_v*.img
+```
+
+The response `EOF on organnery_v*.img` means the end of the image was reached without finding any differences between the image and the microSD card /dev/sdX.
+
 ## Troubleshooting the flashing process
 
 In case of a corrupted download, `md5sum` should report:
-
 ```
-out.img: FAILED
+organnery_v*.img: FAILED
 md5sum: WARNING: 1 computed checksum did NOT match
 ```
 
 Try downloading, uncompressing and verifying again. If the problem persists, the person who built the image should be contacted for assistance.
 
+If the md5sum check passes but the microSD card does not match the image file after flashing, the output from the `cmp` command will differ, for example:
+```
+sudo cmp organnery_v*.img /dev/sdX
+organnery_v*.img /dev/sdX differ: byte 441, line 1
+```
+
+This is typically caused by a faulty card writer device or a worn-out microSD card.
+Flash the microSD card again and use the `cmp` command to verify the flashing worked correctly before booting it.
+If the problem persists, switch card writer device and/or microSD card for replacements known to work.
+
 ## Troubleshooting the first boot
 
-If the md5sum check passes, but the image will not boot from the microSD card, this is typically caused by a faulty card writer device or a worn-out microSD card.
+If both the md5sum and cmp checks pass, but the image will not boot from the microSD card, this could be caused by faulty hardware on the target device.
+Check that the target device will boot other images and that the power supply is providing sufficient voltage under load (the lightning bolt icon is not shown on any display of the target device, and there are no voltage errors in dmesg).
 If the image will not boot after using a known-working card writer and microSD card, and the target device will boot other images, confirm with the person who built the image that this version does in fact boot on the target hardware.
 
 ## Remounting the root filesystem read-write
