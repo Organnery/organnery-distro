@@ -55,8 +55,7 @@ sync
 
 ...where `/dev/sdX` is the microSD writer device identified by `lsblk` after insertion.
 
-After running the `sync` command it should be safe to unplug the microSD card or a USB writer device.
-Watch out for desktop systems that will mount the new microSD card partitions for you automatically, as these may need to be unmounted manually.
+Watch out for desktop systems that will mount microSD card partitions for you automatically, as these may need to be unmounted manually.
 
 ## Verifying the image
 
@@ -66,7 +65,9 @@ sudo cmp organnery_v*.img /dev/sdX
 cmp: EOF on organnery_v*.img
 ```
 
-The response `EOF on organnery_v*.img` means the end of the image was reached without finding any differences between the image and the microSD card /dev/sdX.
+The response `EOF on organnery_v*.img` means the end of the image was reached without finding any differences between the image and the microSD card `/dev/sdX`.
+After running the `sync` command and confirming that the partitions are not mounted, it should be safe to unplug the microSD card or a USB writer device.
+Having been verified and unmounted, this microSD card should now be ready for booting in the target device.
 
 ## Troubleshooting the flashing process
 
@@ -76,9 +77,9 @@ organnery_v*.img: FAILED
 md5sum: WARNING: 1 computed checksum did NOT match
 ```
 
-Try downloading, uncompressing and verifying again. If the problem persists, the person who built the image should be contacted for assistance.
+Try downloading, gunzipping and checksumming again. If the problem persists, the person who built the image should be contacted for assistance.
 
-If the md5sum check passes but the microSD card does not match the image file after flashing, the output from the `cmp` command will differ, for example:
+If the `md5sum` check passes but the microSD card does not match the image file after flashing, the output from the `cmp` command will differ, for example:
 ```
 sudo cmp organnery_v*.img /dev/sdX
 organnery_v*.img /dev/sdX differ: byte 441, line 1
