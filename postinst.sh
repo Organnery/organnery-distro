@@ -33,16 +33,13 @@ hdmi_group=2
 hdmi_mode=24
 EOF
 
-
 # kernel cmdline
-#echo "dwc_otg.lpm_enable=0 net.ifnames=0 console=ttyAMA0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait logo.nologo" > /boot/cmdline.txt
+#echo -n "dwc_otg.lpm_enable=0 net.ifnames=0 console=ttyAMA0,115200 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait logo.nologo" > /boot/cmdline.txt
 #default
-# echo "dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait" > /boot/cmdline.txt
 echo -n "dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait" > /boot/cmdline.txt
 
 # use overlayfs for root filesystem
 echo -n " init=/usr/share/organnery/overlayRoot.sh" >> /boot/cmdline.txt
-
 
 # setup realtime for audio users
 # (jack normally does this)
