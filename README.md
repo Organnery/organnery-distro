@@ -47,26 +47,29 @@ If the download is good, `md5sum` will report:
 organnery_v*.img: OK
 ```
 
-Then you can proceed to flash the image:
+Then you can proceed to plug in your microSD card writer, unmount any microSD card partitions that are mounted automatically, and flash the image:
 ```
+lsblk
+sudo umount /dev/sdX1
+sudo umount /dev/sdX2
 sudo dd if=organnery_v*.img of=/dev/sdX bs=4M status=progress
 sync
 ```
 
 ...where `/dev/sdX` is the microSD writer device identified by `lsblk` after insertion.
 
-Watch out for desktop systems that will mount microSD card partitions for you automatically, as these may need to be unmounted manually.
-
 ## Verifying the image
 
-Immediately after flashing, before the microSD card has been booted or modified, it is possible to check that the flashing worked correctly, using the `cmp` command. For example:
+Immediately after flashing, before the microSD card has been mounted or booted, it is possible to check that the flashing worked correctly, using the `cmp` command. For example:
 ```
 sudo cmp organnery_v*.img /dev/sdX
 cmp: EOF on organnery_v*.img
 ```
 
 The response `EOF on organnery_v*.img` means the end of the image was reached without finding any differences between the image and the microSD card `/dev/sdX`.
-After running the `sync` command and confirming that the partitions are not mounted, it should be safe to unplug the microSD card or a USB writer device.
+Watch out for systems that will mount the microSD card partitions for you automatically, after the `dd` command has completed, as this will potentially update the microSD card and cause this verification method to fail, even though the flashing was successful.
+
+After confirming that the microSD card partitions are not mounted, using `lsblk` again, it should be safe to unplug the microSD card or a USB writer device.
 Having been verified and unmounted, this microSD card should now be ready for booting in the target device.
 
 ## Troubleshooting the flashing process
