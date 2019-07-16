@@ -28,9 +28,9 @@ dtoverlay=pisound
 # force HDMI output when no monitor is available
 hdmi_force_hotplug=1
 
-# set HDMI resolution to 1280x768
+# set HDMI resolution to 1024x768
 hdmi_group=2
-hdmi_mode=24
+hdmi_mode=18
 EOF
 
 # kernel cmdline
