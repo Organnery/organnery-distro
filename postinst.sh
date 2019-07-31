@@ -12,6 +12,9 @@ apt-get install -f --yes
 
 # setup config.txt
 cat << EOF > /boot/config.txt
+# configure OTP memory bit to boot from USB in future
+program_usb_boot_mode=1
+
 # the kernel to use
 kernel=vmlinuz-4.19.25-v7-raspberrypi-default
 
