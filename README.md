@@ -15,7 +15,7 @@ To clean this workspace of previously generated files, run the command:
 make clean
 ```
 
-Next, you will probably want to increment the version number `v*.img` in the `Makefile` to avoid overwriting your previously generated image.
+Next, you will probably want to increment the version number `v*` in the `Makefile` to avoid overwriting your previously generated image.
 For example, before building image version 999, you would bump the value of `IMAGE` to:
 ```
 IMAGE := "organnery_v999.img"
@@ -35,7 +35,7 @@ That's it, your compressed image `organnery_v*.img.gz` and checksum file `organn
 
 ## Flashing the image
 
-The compressed image `organnery_v*.img.gz` can be flashed to a microSD card in the usual way, using `dd` for example.
+The compressed image `organnery_v*.img.gz` (where v* is the version number) can be flashed to a microSD card in the usual way, using `dd` for example.
 First, uncompress and verify the image has not been corrupted by comparing it to the checksum file `organnery_v*.img.md5sum` with these commands:
 ```
 gunzip organnery_v*.img.gz
