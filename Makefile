@@ -1,5 +1,5 @@
 CONFIG := "config"
-IMAGE := "organnery_v7.img"
+IMAGE := "organnery_v7.1.img"
 
 
 clean:
@@ -8,7 +8,7 @@ clean:
 	if [ -f $(IMAGE).gz ]; then rm $(IMAGE).gz; fi
 
 image:
-	sudo /usr/share/dibby/dibby $(CURDIR) $(CONFIG) $(IMAGE)
+	sudo /home/builder/dibby/dibby $(CURDIR) $(CONFIG) $(IMAGE)
 
 release:
 	md5sum $(IMAGE) > $(IMAGE).md5sum

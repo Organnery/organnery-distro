@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois
+apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois fbi
 apt-get install --yes xserver-xorg xserver-xorg-input-libinput xserver-xorg-video-fbdev x11-xserver-utils
 apt-get install --yes lightdm lightdm-autologin-greeter
 apt-get install --yes openbox
@@ -67,3 +67,48 @@ iface eth0 inet static
 	address 192.168.0.100
 	gateway 192.168.0.1
 EOF
+
+# setup bootsplash screen
+cat << EOF > /etc/init.d/asplashscreen
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          asplashscreen
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Default-Start:     S
+# Default-Stop:
+# Short-Description: Show custom splashscreen
+# Description:       Show custom splashscreen
+### END INIT INFO
+
+do_start () {
+    /usr/bin/fbi -T 1 -noverbose -a /usr/share/organnery/img/splash.png
+    exit 0
+}
+
+case "$1" in
+  start|"")
+    do_start
+    ;;
+  restart|reload|force-reload)
+    echo "Error: argument '$1' not supported" >&2
+    exit 3
+    ;;
+  stop)
+    # No-op
+    ;;
+  status)
+    exit 0
+    ;;
+  *)
+    echo "Usage: asplashscreen [start|stop]" >&2
+    exit 3
+    ;;
+esac
+
+:
+EOF
+
+chmod a+x /etc/init.d/asplashscreen
+insserv /etc/init.d/asplashscreen
