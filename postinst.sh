@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois
+apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois dosfstools
 apt-get install --yes xserver-xorg xserver-xorg-input-libinput xserver-xorg-video-fbdev x11-xserver-utils
 apt-get install --yes lightdm lightdm-autologin-greeter
 apt-get install --yes openbox
@@ -12,6 +12,7 @@ apt-get install -f --yes
 
 # setup config.txt
 cat << EOF > /boot/config.txt
+
 # configure OTP memory bit to boot from USB in future
 program_usb_boot_mode=1
 
@@ -57,11 +58,11 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 
-# ethernet static IP
+# ethernet IP
 auto /enx*=eth0
 allow-hotplug eth0
-#iface eth0 inet dhcp
-iface eth0 inet static
-	address 192.168.0.100
-	gateway 192.168.0.1
+iface eth0 inet dhcp
+#iface eth0 inet static
+#	address 192.168.0.100
+#	gateway 192.168.0.1
 EOF
