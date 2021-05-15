@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois dosfstools
+apt-get install --yes alsa-utils console-common cpufrequtils debconf-utils fake-hwclock gnupg locales ntp psmisc rfkill rt-tests sudo whois dosfstools feh
 apt-get install --yes xserver-xorg xserver-xorg-input-libinput xserver-xorg-video-fbdev x11-xserver-utils
 apt-get install --yes lightdm lightdm-autologin-greeter
 apt-get install --yes openbox
