@@ -67,6 +67,13 @@ iface eth0 inet dhcp
 #	gateway 192.168.0.1
 EOF
 
+# set dhcp timeout to minimum to reduce boot time
+mkdir -p /etc/systemd/system/networking.service.d/
+cat << EOF > /etc/systemd/system/networking.service.d/reduce-timeout.conf
+[Service]
+TimeoutStartSec=2
+EOF
+
 # Allow members of group sudo to execute any command
 cat << EOF > /etc/sudoers
 # Allow members of group sudo to execute any command
