@@ -66,3 +66,9 @@ iface eth0 inet dhcp
 #	address 192.168.0.100
 #	gateway 192.168.0.1
 EOF
+
+# Allow members of group sudo to execute any command
+cat << EOF > /etc/sudoers
+# Allow members of group sudo to execute any command
+%sudo	ALL=(ALL:ALL) NOPASSWD: ALL
+EOF
