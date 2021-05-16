@@ -1,0 +1,6 @@
+CONFIG_ARCH="armhf"
+CONFIG_HOSTNAME="organnery"
+CONFIG_ROOT_PASSWORD="toor"
+CONFIG_PRESEED="preseed.conf"
+CONFIG_POSTINST="postinst_default.sh"
+CONFIG_CUSTOM_TASKS="openssh-server"

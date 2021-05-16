@@ -27,7 +27,7 @@ dtoverlay=pi3-disable-wifi
 dtoverlay=pi3-disable-bt
 
 # default soundcard
-dtoverlay=pisound
+dtparam=audio=on
 
 # force HDMI output when no monitor is available
 hdmi_force_hotplug=1
@@ -61,10 +61,9 @@ iface lo inet loopback
 # ethernet IP
 auto /enx*=eth0
 allow-hotplug eth0
-iface eth0 inet dhcp
-#iface eth0 inet static
-#	address 192.168.0.100
-#	gateway 192.168.0.1
+iface eth0 inet static
+	address 192.168.0.100
+	gateway 192.168.0.1
 EOF
 
 # set dhcp timeout to minimum to reduce boot time
