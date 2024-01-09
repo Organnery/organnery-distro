@@ -2,3 +2,4 @@
 *.img.gz
 *.md5sum
 debootstrap.log
+debs/
